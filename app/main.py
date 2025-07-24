@@ -9,7 +9,7 @@ load_dotenv()
 app = FastAPI()
 
 def get_api_url():
-    return os.getenv("TEST_API_URL") if os.getenv("API_TYPE") == "test" else os.getenv("PRODUCTION_API_URL")
+    return os.getenv("PRODUCTION_API_URL") if os.getenv("API_TYPE") == "production" else os.getenv("TEST_API_URL")
 
 app.add_middleware(
     CORSMiddleware,
@@ -18,6 +18,10 @@ app.add_middleware(
     allow_headers=["*"],  
 )
 
-@app.get("/")
-async def root():
-    return {"status": "healthy"}
+@app.get("/health", methods=["GET"]) 
+async def health_check():
+    return {"status": "ok"}
+
+@app.post("/create", methods=["POST"])
+async def create_chatbot_endpoint(chatbotData: dict):
+    console.log(f"Received chatbot data: {chatbotData}")

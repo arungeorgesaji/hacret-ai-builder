@@ -1,3 +1,0 @@
-builder.hacret.com {
-    reverse_proxy app:8000
-}
