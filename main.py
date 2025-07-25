@@ -18,10 +18,10 @@ app.add_middleware(
     allow_headers=["*"],  
 )
 
-@app.get("/health", methods=["GET"]) 
+@app.get("/health") 
 async def health_check():
     return {"status": "ok"}
 
-@app.post("/create", methods=["POST"])
+@app.post("/create")
 async def create_chatbot_endpoint(chatbotData: dict):
     console.log(f"Received chatbot data: {chatbotData}")
